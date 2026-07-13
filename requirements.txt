@@ -1,0 +1,14 @@
+Flask
+Flask-Cors
+transformers
+torch
+Pillow
+pytesseract
+python-dotenv
+numpy
+requests
+gunicorn
+python-docx
+langdetect
+sentencepiece
+scikit-learn
