@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Multilingual Translator</title>
+    <!-- Google Fonts for modern typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- PDF.js for client-side PDF reading -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
+    
+    <!-- Mammoth.js for client-side DOCX reading -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
+    
+    <!-- Tesseract.js for client-side OCR -->
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+</head>
+<body>
+    <div class="glow-bg"></div>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <h1 class="title glow-text">
+                <span class="sparkle">✨</span> AI Multilingual Translator <span class="sparkle">✨</span>
+            </h1>
+            <p class="subtitle">Runs entirely in your browser. Serverless, secure, and private.</p>
+        </header>
+
+        <!-- Model Initialization Overlay / Progress -->
+        <div id="model-loader" class="model-loader-container">
+            <div class="loader-card">
+                <div class="spinner"></div>
+                <h2>Initializing AI Translation Engine</h2>
+                <p>Downloading model weights directly to your browser cache (~1.2 GB).</p>
+                <p class="warning-note">⚠️ This is only required on the first load. Subsequent visits will load instantly.</p>
+                
+                <div class="progress-bar-container">
+                    <div id="progress-bar" class="progress-bar"></div>
+                </div>
+                <div id="progress-percentage" class="progress-percentage">0.00%</div>
+                
+                <div id="file-progress-list" class="file-progress-list">
+                    <!-- Progress for individual model files will appear here -->
+                </div>
+            </div>
+        </div>
+
+        <main class="translator-interface">
+            <div class="translator-grid">
+                <!-- Input Panel -->
+                <div class="panel input-panel">
+                    <div class="panel-header">
+                        <h3>Source Text (English)</h3>
+                        <div class="char-count" id="char-count">0 / 2000</div>
+                    </div>
+                    
+                    <textarea id="inputText" placeholder="Type or paste English text here... (max 2000 characters for optimal speed)"></textarea>
+                    
+                    <div class="upload-zone" id="dropzone">
+                        <div class="upload-icon">📁</div>
+                        <p class="upload-text">Drag & drop files here or <span class="browse-link">browse</span></p>
+                        <p class="upload-formats">Supports PDF, DOCX, TXT, or images (OCR)</p>
+                        <input type="file" id="fileInput" accept=".txt,.pdf,.docx,image/*" style="display: none;">
+                    </div>
+
+                    <div id="file-status" class="file-status" style="display: none;">
+                        <span class="file-icon">📄</span>
+                        <span id="file-name" class="file-name">filename.txt</span>
+                        <button type="button" id="remove-file-btn" class="remove-file-btn">&times;</button>
+                    </div>
+                </div>
+
+                <!-- Output Panel -->
+                <div class="panel output-panel">
+                    <div class="panel-header">
+                        <h3>Translated Output</h3>
+                    </div>
+                    
+                    <div id="translatedText" class="output-box placeholder">
+                        Translation will appear here...
+                    </div>
+                    
+                    <div class="output-actions">
+                        <button type="button" id="copy-btn" class="action-btn copy-btn" disabled>
+                            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                            </svg>
+                            Copy Translation
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Controls -->
+            <div class="controls-bar">
+                <div class="select-container">
+                    <label for="languageSelect">Translate to:</label>
+                    <select id="languageSelect">
+                        <!-- Languages will be dynamically populated -->
+                    </select>
+                </div>
+                
+                <button type="button" id="translateBtn" class="translate-btn">
+                    Translate
+                </button>
+            </div>
+        </main>
+    </div>
+
+    <!-- Script loading -->
+    <script type="module" src="script.js"></script>
+</body>
+</html>
